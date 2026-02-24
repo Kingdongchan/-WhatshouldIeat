@@ -35,6 +35,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     for (let i = 0; i < numPages; i++) {
                         const page = document.createElement('div');
                         page.classList.add('dynamic-page');
+                        page.innerText = '?'; // Add question mark
                         const randomRotateZ = Math.random() * 360 - 180; // -180 to 180 degrees
                         const randomTranslateX = (Math.random() * 400 - 200); // -200 to 200px
                         const randomTranslateY = (Math.random() * 400 - 200); // -200 to 200px
