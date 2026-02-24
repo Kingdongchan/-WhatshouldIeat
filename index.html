@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html class="light" lang="ko"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>뭐 먹지? - Whimsical Lunch Menu Book</title>
+<link href="https://fonts.googleapis.com/css2?family=Jua&amp;family=Nanum+Pen+Script&amp;family=Gaegu:wght@400;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#FF7F7F",
+                        "background-light": "#FFFBF0",
+                        "background-dark": "#1A1A1A",
+                        "book-cover": "#FF9A9A",
+                        "book-spine": "#E57373",
+                    },
+                    fontFamily: {
+                        display: ["Jua", "sans-serif"],
+                        hand: ["Nanum Pen Script", "cursive"],
+                        body: ["Gaegu", "sans-serif"],
+                    },
+                    borderRadius: {
+                        DEFAULT: "1rem",
+                        "xl": "2rem",
+                    },
+                    keyframes: {
+                        heartbeat: {
+                            '0%, 100%': { transform: 'scale(1)' },
+                            '10%': { transform: 'scale(1.05)' },
+                            '20%': { transform: 'scale(1)' },
+                            '30%': { transform: 'scale(1.05)' },
+                        }
+                    },
+                    animation: {
+                        heartbeat: 'heartbeat 2s ease-in-out infinite',
+                    }
+                },
+            },
+        };
+    </script>
+<style>
+        .tilted {
+            display: inline-block;
+            transform: rotate(-10deg);
+        }
+        .book-shadow {
+            box-shadow: 20px 20px 60px rgba(0,0,0,0.1), -5px -5px 20px rgba(255,255,255,0.5);
+        }
+        .dark .book-shadow {
+            box-shadow: 10px 10px 40px rgba(0,0,0,0.5);
+        }
+        .book-binding {
+            background: linear-gradient(90deg, rgba(0,0,0,0.1) 0%, rgba(255,255,255,0.2) 50%, rgba(0,0,0,0.1) 100%);
+        }
+    </style>
+</head>
+    <body class="bg-background-light dark:bg-background-dark min-h-screen font-body transition-colors duration-300 flex flex-col items-center justify-center p-4">
+        <button class="fixed top-6 right-6 p-3 rounded-full bg-white dark:bg-gray-800 shadow-lg text-gray-600 dark:text-gray-300 hover:scale-110 transition-transform" onclick="document.documentElement.classList.toggle('dark')">
+            <span class="material-icons block dark:hidden">dark_mode</span>
+            <span class="material-icons hidden dark:block">light_mode</span>
+        </button>
+
+    <header class="text-center mb-12 select-none">
+        <h1 class="text-6xl md:text-8xl font-display tracking-tight">
+            <span class="tilted text-primary mr-2">뭐</span>
+            <span class="font-hand text-yellow-500 dark:text-yellow-400">먹지?</span>
+        </h1>
+        <p class="text-xl md:text-2xl text-gray-500 dark:text-gray-400 mt-4 font-hand">맛있는 고민의 시작, 메뉴 북을 펼쳐보세요!</p>
+
+    </header>
+
+    <main class="relative w-full max-w-md aspect-[3/4] md:max-w-lg">
+        <div class="absolute inset-0 bg-book-cover dark:bg-red-900 rounded-r-xl rounded-l-md book-shadow border-r-8 border-book-spine dark:border-red-800 flex flex-col items-center justify-center p-8 overflow-hidden">
+            <div class="absolute left-0 top-0 bottom-0 w-6 book-binding opacity-50"></div>
+            <div class="absolute top-4 right-4 border-t-4 border-r-4 border-white/30 w-12 h-12 rounded-tr-lg"></div>
+            <div class="absolute bottom-4 right-4 border-b-4 border-r-4 border-white/30 w-12 h-12 rounded-br-lg"></div>
+            <div class="mb-8 text-white/90">
+                <span class="material-icons text-9xl">restaurant_menu</span>
+            </div>
+
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-display text-white drop-shadow-md">오늘의 메뉴</h2>
+                <div class="h-1 w-24 bg-white/50 mx-auto mt-2 rounded-full"></div>
+            </div>
+
+            <div class="w-full space-y-6">
+                <div class="relative group animate-heartbeat">
+                    <input class="w-full h-16 px-6 text-xl rounded-full border-none bg-white/95 dark:bg-gray-100 text-gray-800 placeholder-gray-400 focus:ring-4 focus:ring-yellow-400 transition-all outline-none shadow-inner font-display text-center" placeholder="페이지 입력하세요" type="text" inputmode="numeric" pattern="[0-9]*"/>
+                    <div class="absolute inset-0 -z-10 bg-yellow-300 blur-xl opacity-20 group-hover:opacity-40 transition-opacity rounded-full"></div>
+                </div>
+
+                <button class="group w-full bg-yellow-400 hover:bg-yellow-500 active:scale-95 text-gray-900 font-display text-2xl py-4 rounded-xl shadow-lg transition-all flex items-center justify-center space-x-2">
+                    <span>펼치기</span>
+                    <span class="material-icons group-hover:translate-x-1 transition-transform">auto_stories</span>
+                </button>
+
+            </div>
+            <p class="absolute bottom-12 text-white/70 font-hand text-lg italic">
+                            운명에 맡겨보는 식사 시간...
+                        </p>
+        </div>
+
+        <div class="absolute -right-2 top-4 bottom-4 w-2 bg-white/80 dark:bg-gray-300 rounded-r shadow-sm -z-10"></div>
+        <div class="absolute -right-4 top-8 bottom-8 w-2 bg-white/60 dark:bg-gray-400 rounded-r shadow-sm -z-20"></div>
+    </main>
+    <div class="fixed -z-10 opacity-10 dark:opacity-5 pointer-events-none">
+        <span class="material-icons text-9xl absolute -top-20 -left-40 rotate-12">lunch_dining</span>
+        <span class="material-icons text-8xl absolute top-60 -right-40 -rotate-12">ramen_dining</span>
+        <span class="material-icons text-7xl absolute -bottom-20 left-20 rotate-45">bakery_dining</span>
+        <span class="material-icons text-9xl absolute bottom-40 right-10 -rotate-6">local_pizza</span>
+    </div>
+
+    <footer class="mt-12 text-gray-400 dark:text-gray-500 text-sm font-body">
+        <p>© 2024 Whimsical Lunch Menu Game. All rights reserved.</p>
+    </footer>
+    <script src="logic/fallingfood.js"></script>
+    <script src="logic/validation.js"></script>
+    </body>
+</html>
