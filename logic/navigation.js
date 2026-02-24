@@ -1,9 +1,1 @@
- document.addEventListener('DOMContentLoaded', function() {
-    const openButton = document.querySelector('button.group');
-
-    if (openButton) {
-        openButton.addEventListener('click', function() {
-            window.location.href = 'page/result.html';
-        });
-    }
-}); 
+// This file is intentionally left blank. Its navigation logic has been moved to logic/validation.js.

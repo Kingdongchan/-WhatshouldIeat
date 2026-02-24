@@ -113,27 +113,6 @@
 <span class="material-icons text-4xl text-primary">bakery_dining</span>
 </div>
 </div>
-<script>
-
-        function setRandomMenu() {
-            const resultElement = document.getElementById('result-text');
-            const randomIndex = Math.floor(Math.random() * menus.length);
-            resultElement.innerText = menus[randomIndex];
-            // Add a little pop animation when setting
-            resultElement.classList.remove('scale-100');
-            resultElement.classList.add('scale-110');
-            setTimeout(() => {
-                resultElement.classList.remove('scale-110');
-                resultElement.classList.add('scale-100');
-            }, 200);
-        }
-        function resetGame() {
-            window.location.href = '../index.html';
-        }
-        // Initialize with a random menu
-        window.onload = setRandomMenu;
-    </script>
-    
-
     <script src="../logic/fallingfood.js"></script>
+    <script src="../logic/random.js"></script>
 </body></html>
