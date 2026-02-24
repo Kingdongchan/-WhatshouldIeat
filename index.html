@@ -62,6 +62,59 @@
         }
         .book-open .book-cover-inner {
             transform: rotateY(-170deg); /* Adjust angle for desired open effect */
+            transition-delay: 0.2s; /* Delay cover opening slightly */
+        }
+
+        .book-pages-container {
+            position: absolute;
+            inset: 0;
+            perspective: 1000px; /* For 3D transforms */
+            transform-style: preserve-3d;
+            z-index: -1; /* Behind the cover */
+        }
+
+        .book-page {
+            position: absolute;
+            top: 0;
+            left: 50%; /* Start from the spine */
+            width: 50%; /* Half the book width */
+            height: 100%;
+            background-color: #f0f0f0; /* Page color */
+            border: 1px solid #ddd;
+            transform-origin: left center;
+            transform: rotateY(0deg) translateX(0);
+            backface-visibility: hidden; /* Hide back of the page during flip */
+            box-shadow: -2px 0 5px rgba(0,0,0,0.1);
+            z-index: -1; /* Behind the cover */
+        }
+        
+        .book-page-1 { transition: transform 0.8s ease-in-out; z-index: -2;}
+        .book-page-2 { transition: transform 0.8s ease-in-out; z-index: -3;}
+        .book-page-3 { transition: transform 0.8s ease-in-out; z-index: -4;}
+
+        .book-open .book-page-1 {
+            transform: rotateY(-175deg) translateX(-100%);
+            transition-delay: 0.4s;
+        }
+        .book-open .book-page-2 {
+            transform: rotateY(-170deg) translateX(-100%);
+            transition-delay: 0.6s;
+        }
+        .book-open .book-page-3 {
+            transform: rotateY(-165deg) translateX(-100%);
+            transition-delay: 0.8s;
+        }
+
+        /* Sparkling Effect */
+        @keyframes sparkle {
+            0% { box-shadow: 0 0 5px #fff, 0 0 10px #ff0, 0 0 15px #ff0; opacity: 0; }
+            50% { box-shadow: 0 0 10px #fff, 0 0 20px #ff0, 0 0 30px #ff0; opacity: 1; }
+            100% { box-shadow: 0 0 5px #fff, 0 0 10px #ff0, 0 0 15px #ff0; opacity: 0; }
+        }
+
+        .sparkle-effect {
+            animation: sparkle 1.5s ease-out forwards;
+            animation-delay: 1.2s; /* After pages start flipping */
         }
     </style>
 </head>
@@ -80,8 +133,8 @@
 
     </header>
 
-    <main class="relative w-full max-w-md aspect-[3/4] md:max-w-lg">
-        <div class="absolute inset-0 bg-book-cover dark:bg-red-900 rounded-r-xl rounded-l-md book-shadow border-r-8 border-book-spine dark:border-red-800 flex flex-col items-center justify-center p-8 overflow-hidden book-cover-inner">
+    <main id="mainBook" class="relative w-full max-w-md aspect-[3/4] md:max-w-lg">
+        <div class="absolute inset-0 bg-book-cover dark:bg-red-900 rounded-r-xl rounded-l-md book-shadow border-r-8 border-book-spine dark:border-red-800 flex flex-col items-center justify-center p-8 overflow-hidden book-cover-inner" id="bookCover">
             <div class="absolute left-0 top-0 bottom-0 w-6 book-binding opacity-50"></div>
             <div class="absolute top-4 right-4 border-t-4 border-r-4 border-white/30 w-12 h-12 rounded-tr-lg"></div>
             <div class="absolute bottom-4 right-4 border-b-4 border-r-4 border-white/30 w-12 h-12 rounded-br-lg"></div>
@@ -109,6 +162,13 @@
             <p class="absolute bottom-4 md:bottom-12 text-white/70 font-hand text-lg italic">
                             운명에 맡겨보는 식사 시간...
                         </p>
+        </div>
+        
+        <!-- Book Pages Container for animation -->
+        <div class="absolute inset-0 book-pages-container pointer-events-none">
+            <div class="book-page book-page-1"></div>
+            <div class="book-page book-page-2"></div>
+            <div class="book-page book-page-3"></div>
         </div>
 
         <div class="absolute -right-2 top-4 bottom-4 w-2 bg-white/80 dark:bg-gray-300 rounded-r shadow-sm -z-10"></div>

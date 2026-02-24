@@ -15,14 +15,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 alert('메뉴 페이지를 입력해주세요!');
                 e.preventDefault(); // Prevent default button action if validation fails
             } else {
-                const mainBook = document.querySelector('main');
+                const mainBook = document.querySelector('#mainBook');
                 if (mainBook) {
-                    mainBook.classList.add('book-open'); // Trigger animation
-                    
-                    // Delay navigation until animation is likely complete
+                    mainBook.classList.add('book-open'); // Trigger book cover and page animation
+                    mainBook.classList.add('sparkle-effect'); // Trigger sparkling effect
+
+                    // Delay navigation until all animations are likely complete
                     setTimeout(() => {
                         window.location.href = 'page/result.html';
-                    }, 1000); // Match this duration with the CSS transition duration
+                    }, 2700); // Increased duration to accommodate all animations
                 } else {
                     window.location.href = 'page/result.html'; // Fallback if mainBook not found
                 }
