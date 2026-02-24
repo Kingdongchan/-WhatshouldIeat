@@ -1,0 +1,6 @@
+# macOS system files
+.DS_Store
+
+# .gitignore 파일
+.env
+
