@@ -15,7 +15,17 @@ document.addEventListener('DOMContentLoaded', function() {
                 alert('메뉴 페이지를 입력해주세요!');
                 e.preventDefault(); // Prevent default button action if validation fails
             } else {
-                window.location.href = 'page/result.html';
+                const mainBook = document.querySelector('main');
+                if (mainBook) {
+                    mainBook.classList.add('book-open'); // Trigger animation
+                    
+                    // Delay navigation until animation is likely complete
+                    setTimeout(() => {
+                        window.location.href = 'page/result.html';
+                    }, 1000); // Match this duration with the CSS transition duration
+                } else {
+                    window.location.href = 'page/result.html'; // Fallback if mainBook not found
+                }
             }
         });
     }
