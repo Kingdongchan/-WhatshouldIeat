@@ -14,6 +14,8 @@ document.addEventListener('DOMContentLoaded', function() {
             if (!pageInput || pageInput.value.trim() === '') {
                 alert('메뉴 페이지를 입력해주세요!');
                 e.preventDefault(); // Prevent default button action if validation fails
+            } else {
+                window.location.href = 'page/result.html';
             }
         });
     }
