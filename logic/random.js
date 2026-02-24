@@ -79,17 +79,18 @@ const menus = [
 
 // 페이지 로드 시, 또는 다시하기 시에 랜덤 메뉴를 설정하는 함수
 function setRandomMenu() {
-    // 결과를 표시할 요소를 가져옵니다.
     const resultElement = document.getElementById('result-text');
+    let selectedMenu = sessionStorage.getItem('lastFoodRecommendation');
 
-    // 메뉴 목록에서 랜덤 인덱스를 선택합니다.
-    const randomIndex = Math.floor(Math.random() * menus.length);
+    if (!selectedMenu) {
+        const randomIndex = Math.floor(Math.random() * menus.length);
+        selectedMenu = menus[randomIndex];
+        sessionStorage.setItem('lastFoodRecommendation', selectedMenu);
+    }
 
-    // 선택된 메뉴를 결과 요소에 표시합니다.
     if(resultElement) {
-        resultElement.innerText = menus[randomIndex];
+        resultElement.innerText = selectedMenu;
 
-        // 텍스트에 약간의 애니메이션 효과를 줍니다.
         resultElement.classList.remove('scale-100');
         resultElement.classList.add('scale-110');
         setTimeout(() => {
@@ -101,7 +102,7 @@ function setRandomMenu() {
 
 // "다시하기" 버튼을 눌렀을 때의 동작을 정의하는 함수
 function resetGame() {
-    // 메인 페이지(index.html)로 이동합니다.
+    sessionStorage.removeItem('lastFoodRecommendation'); // 이 부분을 추가
     window.location.href = '../index.html';
 }
 
