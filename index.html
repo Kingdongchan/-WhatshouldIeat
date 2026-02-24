@@ -66,47 +66,60 @@
             transition-delay: 0.2s; /* Delay cover opening slightly */
         }
 
-        .book-pages-container {
+        /* Styles for dynamically generated pages */
+        .dynamic-page {
             position: absolute;
-            inset: 0;
-            perspective: 1000px; /* For 3D transforms */
-            transform-style: preserve-3d;
-            z-index: -1; /* Behind the cover */
+            top: 50%;
+            left: 50%;
+            width: 150px; /* Adjust size as needed */
+            height: 200px; /* Adjust size as needed */
+            background-color: white;
+            border: 1px solid #eee;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transform-origin: 0% 50%; /* Rotate from the center-left */
+            opacity: 0;
+            z-index: 10;
         }
 
-        .book-page {
-            position: absolute;
+        @keyframes spreadPage {
+            0% {
+                transform: translate(-50%, -50%) rotateY(0deg) rotateZ(0deg) scale(0.5);
+                opacity: 0;
+            }
+            100% {
+                transform: translate(-50%, -50%) rotateY(-180deg) rotateZ(var(--random-rotateZ, 0deg)) translateX(var(--random-translateX, 0px)) translateY(var(--random-translateY, 0px)) scale(1);
+                opacity: 1;
+            }
+        }
+
+        .spread-animation {
+            animation: spreadPage var(--animation-duration, 1.5s) ease-out forwards;
+        }
+
+        /* White Expanding Effect */
+        #whiteOverlay {
+            position: fixed;
             top: 0;
-            left: 50%; /* Start from the spine */
-            width: 50%; /* Half the book width */
-            height: 100%;
-            background-color: #f0f0f0; /* Page color */
-            border: 1px solid #ddd;
-            transform-origin: left center;
-            transform: rotateY(0deg) translateX(0);
-            backface-visibility: hidden; /* Hide back of the page during flip */
-            box-shadow: -2px 0 5px rgba(0,0,0,0.1);
-            z-index: -1; /* Behind the cover */
-        }
-        
-        .book-page-1 { transition: transform 0.8s ease-in-out; z-index: -2;}
-        .book-page-2 { transition: transform 0.8s ease-in-out; z-index: -3;}
-        .book-page-3 { transition: transform 0.8s ease-in-out; z-index: -4;}
-
-        .book-open .book-page-1 {
-            transform: rotateY(-175deg) translateX(-100%);
-            transition-delay: 0.4s;
-        }
-        .book-open .book-page-2 {
-            transform: rotateY(-170deg) translateX(-100%);
-            transition-delay: 0.6s;
-        }
-        .book-open .book-page-3 {
-            transform: rotateY(-165deg) translateX(-100%);
-            transition-delay: 0.8s;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: white;
+            opacity: 0;
+            pointer-events: none;
+            z-index: 9999; /* Ensure it's on top */
         }
 
-        /* Sparkling Effect */
+        @keyframes whiteExpand {
+            0% { transform: scale(0); opacity: 0; }
+            50% { transform: scale(1.2); opacity: 1; }
+            100% { transform: scale(2); opacity: 0; } /* Expand beyond view and fade out */
+        }
+
+        .white-expand-animation {
+            animation: whiteExpand 0.7s ease-out forwards;
+        }
+
+        /* Sparkling Effect (retained but might be superseded) */
         @keyframes sparkle {
             0% { box-shadow: 0 0 5px #fff, 0 0 10px #ff0, 0 0 15px #ff0; opacity: 0; }
             50% { box-shadow: 0 0 10px #fff, 0 0 20px #ff0, 0 0 30px #ff0; opacity: 1; }
@@ -185,6 +198,7 @@
     <footer class="mt-12 text-gray-400 dark:text-gray-500 text-sm font-body">
         <p>© 2026 Whimsical Lunch Menu Game. All rights reserved.</p>
     </footer>
+    <div id="whiteOverlay" class="fixed inset-0 bg-white opacity-0 pointer-events-none"></div>
     <script src="logic/fallingfood.js"></script>
     <script src="logic/validation.js"></script>
     <script src="logic/navigation.js"></script>
